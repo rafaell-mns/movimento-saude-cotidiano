@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Movimento, saúde e cotidiano</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f1f8dc;--bg2:#dcebb8;--card:#fff;--ink:#0b4f2a;--green:#0a8a3d;--deep:#066b30;--pink:#ff6b8a;--sun:#ffb830;--shadow:rgba(6,107,48,.18);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e2a18;--bg2:#143a22;--card:#17432a;--ink:#e6f6d0;--green:#5fd488;--deep:#9be8b4;--shadow:rgba(0,0,0,.4)}}
+*,*::before,*::after{box-sizing:inherit}
+html{-webkit-tap-highlight-color:transparent;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Baloo 2",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-weight:500;font-size:17px;line-height:1.35;padding-bottom:calc(40px + env(safe-area-inset-bottom,0px));overflow-x:hidden}
+h1,h2,h3{margin:0;font-weight:800;line-height:1.05}
+h2{font-size:1.8rem;color:var(--deep)}
+p{margin:6px 0 0}
+.rv{opacity:0;transform:translateY(34px) scale(.96);transition:opacity .6s ease,transform .6s cubic-bezier(.2,1.3,.4,1);transition-delay:var(--d,0s)}
+.rv.in{opacity:1;transform:none}
+.hero{position:relative;background:var(--bg2);padding:34px 20px 80px;text-align:center;overflow:hidden;border-radius:0 0 50% 50%/0 0 40px 40px;min-height:88svh;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.hero h1{font-size:2.5rem;color:var(--deep);position:relative;z-index:2}
+.word{display:inline-block;color:var(--pink);min-width:3ch;animation:flip .5s}
+@keyframes flip{from{transform:rotateX(90deg);opacity:0}to{transform:none;opacity:1}}
+.hero p{max-width:290px;position:relative;z-index:2}
+.heart{width:190px;height:190px;display:block;animation:beat 1.1s ease-in-out infinite;position:relative;z-index:2;margin:10px 0}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.13)}30%{transform:scale(1)}45%{transform:scale(1.07)}}
+.ecg{stroke-dasharray:140;animation:ecg 1.1s linear infinite}
+@keyframes ecg{from{stroke-dashoffset:140}to{stroke-dashoffset:-140}}
+.float{position:absolute;font-size:2.2rem;z-index:1;will-change:transform}
+.float i{display:block;font-style:normal;animation:fl 5s ease-in-out infinite}
+@keyframes fl{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-16px) rotate(10deg)}}
+.hint{position:absolute;bottom:34px;left:0;right:0;font-weight:700;animation:bob 1.6s ease-in-out infinite;z-index:2}
+@keyframes bob{50%{transform:translateY(8px)}}
+.bar{position:sticky;top:calc(8px + env(safe-area-inset-top,0px));z-index:20;margin:-30px 16px 0;padding:12px 16px 8px;background:var(--card);border-radius:20px;box-shadow:0 6px 18px var(--shadow)}
+.track{position:relative;height:12px;background:var(--bg2);border-radius:9px;margin-top:2px}
+.fill{height:100%;width:0;background:linear-gradient(90deg,var(--sun),var(--pink));border-radius:9px;transition:width .6s cubic-bezier(.3,1.6,.5,1)}
+.runner{position:absolute;top:-17px;left:0;font-size:1.5rem;transition:left .6s cubic-bezier(.3,1.6,.5,1);transform:translateX(-50%) scaleX(-1)}
+#count{font-weight:800;font-size:.95rem;display:flex;justify-content:space-between}
+.belt{overflow:hidden;margin:30px 0 8px;white-space:nowrap;font-size:2rem}
+.belt div{display:inline-block;animation:sl 22s linear infinite}
+.belt.r div{animation-direction:reverse;animation-duration:28s}
+@keyframes sl{to{transform:translateX(-50%)}}
+main{padding:0 16px}
+.sec{margin-top:34px}
+.tips{display:grid;gap:12px;grid-template-columns:1fr 1fr;margin-top:14px}
+.tip{font:inherit;color:inherit;text-align:left;background:var(--card);border:3px solid transparent;border-radius:24px;padding:14px 12px;box-shadow:0 5px 0 var(--shadow);cursor:pointer;display:flex;flex-direction:column;gap:6px;position:relative;min-height:116px}
+.tip.in:active{transform:scale(.93)}
+.tip .e{font-size:2.4rem;line-height:1;display:inline-block}
+.tip.in:hover .e,.tip.done .e{animation:wig .6s}
+@keyframes wig{25%{transform:rotate(-16deg) scale(1.25)}75%{transform:rotate(16deg) scale(1.25)}}
+.tip .t{font-weight:700;line-height:1.15}
+.tip::after{content:"";position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;border:2.5px solid var(--bg2)}
+.tip.done{border-color:var(--green);background:var(--bg2)}
+.tip.done::after{content:"✓";background:var(--green);border-color:var(--green);color:#fff;font-size:.8rem;display:grid;place-items:center;animation:pop .3s}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+.tip:focus-visible,.btn:focus-visible,.dice:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+.note{margin-top:18px;background:var(--sun);color:#4a2f00;border-radius:22px;padding:14px 16px;font-weight:800;text-align:center;font-size:1.1rem}
+.card{background:var(--card);border-radius:26px;padding:18px;box-shadow:0 5px 0 var(--shadow);margin-top:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{background:var(--bg2);border-radius:20px;padding:4px 14px;font-weight:700;opacity:0;transform:scale(.4);transition:.5s cubic-bezier(.3,1.8,.5,1);transition-delay:var(--d,0s)}
+.in .chip,.chip.in{opacity:1;transform:none}
+.btn{font:inherit;font-weight:800;border:0;border-radius:30px;padding:12px 26px;background:var(--green);color:#fff;cursor:pointer;box-shadow:0 4px 0 var(--deep)}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--deep)}
+.breath{display:grid;place-items:center;height:240px}
+.orb{width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff8,transparent 40%),var(--green);display:grid;place-items:center;color:#fff;font-weight:800;font-size:1.15rem;transition:transform 4s ease-in-out;box-shadow:0 0 0 14px var(--bg2)}
+.orb.in{transform:scale(1.6)}
+.dice{position:fixed;right:16px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:30;width:60px;height:60px;border-radius:50%;border:0;background:var(--pink);font-size:1.8rem;cursor:pointer;box-shadow:0 5px 0 #c4415f;animation:wob 2.4s ease-in-out infinite}
+.dice:active{transform:translateY(3px)}
+@keyframes wob{50%{transform:translateY(-6px) rotate(14deg)}}
+.toast{position:fixed;left:16px;right:90px;bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:40;background:var(--deep);color:#fff;border-radius:20px;padding:12px 16px;font-weight:700;transform:translateY(30px);opacity:0;pointer-events:none;transition:.3s}
+.toast.show{transform:none;opacity:1}
+footer{text-align:center;margin-top:30px;font-weight:700}
+.burst{position:fixed;z-index:60;pointer-events:none;font-size:1.6rem;animation:b .95s ease-out forwards}
+@keyframes b{to{transform:translate(var(--x),var(--y)) rotate(var(--r));opacity:0}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.chip{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <span class="float" data-s=".25" style="left:8%;top:40px"><i>🍓</i></span>
+  <span class="float" data-s="-.2" style="right:9%;top:70px"><i style="animation-delay:-2s">👟</i></span>
+  <span class="float" data-s=".35" style="left:10%;bottom:150px"><i style="animation-delay:-4s">🥕</i></span>
+  <span class="float" data-s="-.3" style="right:10%;bottom:170px"><i style="animation-delay:-1s">🧠</i></span>
+  <h1>Movimento,<br>saúde e cotidiano</h1>
+  <svg class="heart" viewBox="0 0 100 100" aria-hidden="true">
+    <path d="M50 88C20 66 8 48 8 32 8 19 18 10 30 10c8 0 15 4 20 11 5-7 12-11 20-11 12 0 22 9 22 22 0 16-12 34-42 56z" fill="#fff" stroke="#0a8a3d" stroke-width="5"/>
+    <polyline class="ecg" points="14,50 34,50 42,32 52,68 60,50 86,50" fill="none" stroke="#0a8a3d" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  <p>Hoje é dia de <b class="word" id="word">mexer</b> o corpo e cuidar de você. Saúde é cuidado!</p>
+  <div class="hint">Deslize para baixo 👇</div>
+</header>
+
+<div class="bar" role="status"><div id="count"><span>Dicas feitas hoje</span><span id="num">0 de 16</span></div><div class="track"><div class="fill" id="fill"></div><div class="runner" id="runner">🏃</div></div></div>
+
+<main>
+  <section class="sec">
+    <h2 class="rv">Mexa-se no dia a dia!</h2>
+    <p class="rv">Todo movimento conta. Respeite os limites do seu corpo.</p>
+    <div class="tips" data-list="move"></div>
+    <div class="note rv">O importante é evitar o sedentarismo!</div>
+  </section>
+
+  <section class="sec">
+    <h2 class="rv">Alimentação saudável</h2>
+    <p class="rv">Alimentar-se bem é nutrir o corpo, fortalecer a saúde e cultivar qualidade de vida.</p>
+    <div class="tips" data-list="food"></div>
+    <div class="note rv">Comer bem não é deixar de comer o que gosta, mas encontrar equilíbrio.</div>
+  </section>
+
+  <section class="sec">
+    <h2 class="rv">E a mente?</h2>
+    <div class="card rv">
+      <h3>A atividade física ajuda a:</h3>
+      <div class="chips" id="benefits"></div>
+      <p>O corpo libera substâncias que ajudam a regular o humor e dão sensação de bem-estar.</p>
+    </div>
+    <div class="card rv" style="text-align:center">
+      <h3>Respire um minuto</h3>
+      <div class="breath"><div class="orb" id="orb">Pronto?</div></div>
+      <button class="btn" id="bbtn">Começar</button>
+    </div>
+    <div class="note rv">Movimentar o corpo também é cuidar da mente. 🧠💪</div>
+  </section>
+
+  <section class="sec">
+    <h2 class="rv">Projeto de Extensão</h2>
+    <div class="card rv"><p style="margin:0">Busca conscientizar a comunidade sobre a importância da atividade física na prevenção de doenças e na promoção da saúde física e mental, com orientações de profissionais, atividades práticas e incentivo a hábitos saudáveis.</p></div>
+    <div class="card rv"><h3>Integrantes</h3>
+      <div class="chips"><span class="chip" style="--d:0s">Abygail</span><span class="chip" style="--d:.08s">Elizete</span><span class="chip" style="--d:.16s">Frankele</span><span class="chip" style="--d:.24s">Ilê</span><span class="chip" style="--d:.32s">Joycy</span><span class="chip" style="--d:.4s">Liviane</span><span class="chip" style="--d:.48s">Luiz</span><span class="chip" style="--d:.56s">Moisés</span></div>
+      <p>Estudantes de Terapia Ocupacional na UNINASSAU Jóquei</p></div>
+    <div class="card rv"><h3>Palestrantes</h3>
+      <div class="chips"><span class="chip">🧠 Lizanete (saúde mental)</span><span class="chip" style="--d:.15s">🍎 Fátima (nutrição)</span></div></div>
+  </section>
+  <footer class="rv">Toque no 🎲 para sortear uma dica!</footer>
+</main>
+
+<button class="dice" id="dice" aria-label="Sortear uma dica">🎲</button>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+var DATA={
+ move:[["🚶","Caminhar pelo bairro ou em casa"],["💃","Dançar suas músicas favoritas"],["🪜","Subir e descer escadas com segurança"],["🌱","Cuidar do jardim ou das plantas"],["🧹","Limpar e organizar a casa"],["🧸","Brincar com as crianças"],["🤸","Alongar o corpo durante as pausas"],["⏰","Fazer pequenas pausas para levantar e caminhar"]],
+ food:[["🍓","Comer frutas da estação"],["🥚","Incluir ovos nas refeições"],["🍚","Combinar arroz e feijão no prato"],["🥦","Consumir legumes e verduras"],["🌽","Preparar cuscuz com ovo ou queijo"],["🍠","Aproveitar macaxeira, batata-doce e inhame"],["🍿","Escolher pipoca caseira e bolos feitos em casa"],["🍰","Permitir-se comer doces e salgados em pequenas porções, sem exagero"]]
+};
+var all=[],done=0,total=16;
+Object.keys(DATA).forEach(function(k){
+  var box=document.querySelector('[data-list="'+k+'"]');
+  DATA[k].forEach(function(t,i){
+    all.push(t[1]);
+    var b=document.createElement('button');b.className='tip rv';b.style.setProperty('--d',(i%2*.1)+'s');b.setAttribute('aria-pressed','false');
+    b.innerHTML='<span class="e">'+t[0]+'</span><span class="t">'+t[1]+'</span>';
+    b.onclick=function(ev){
+      var on=b.classList.toggle('done');b.setAttribute('aria-pressed',on);
+      done+=on?1:-1;upd();
+      if(on)burst(ev.clientX,ev.clientY,t[0]);
+    };
+    box.appendChild(b);
+  });
+});
+var BEN=["😌 menos estresse","🌤️ menos ansiedade","😊 mais humor","😴 melhor sono","⚡ mais disposição","🌈 bem-estar emocional"];
+var bx=document.getElementById('benefits');
+BEN.forEach(function(t,i){var s=document.createElement('span');s.className='chip';s.style.setProperty('--d',(i*.12)+'s');s.textContent=t;bx.appendChild(s)});
+function upd(){
+  var p=done/total*100;
+  document.getElementById('fill').style.width=p+'%';
+  document.getElementById('runner').style.left=p+'%';
+  document.getElementById('num').textContent=done===total?'Parabéns! 🎉':done+' de '+total;
+  if(done===total)for(var i=0;i<16;i++)setTimeout(function(){burst(innerWidth/2,innerHeight/2,['🎉','⭐','💚','🍓'][Math.random()*4|0])},i*70);
+}
+function burst(x,y,e){
+  if(!x&&!y){x=innerWidth/2;y=innerHeight/2}
+  for(var i=0;i<7;i++){
+    var s=document.createElement('span');s.className='burst';s.textContent=e;
+    s.style.left=x+'px';s.style.top=y+'px';
+    s.style.setProperty('--x',(Math.random()*180-90)+'px');
+    s.style.setProperty('--y',(-40-Math.random()*130)+'px');
+    s.style.setProperty('--r',(Math.random()*140-70)+'deg');
+    document.body.appendChild(s);setTimeout(function(n){n.remove()},1000,s);
+  }
+}
+/* aparece ao rolar */
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
+document.querySelectorAll('.rv,.chip').forEach(function(n){io.observe(n)});
+/* paralaxe dos emojis do topo */
+var fl=document.querySelectorAll('.float'),tk=false;
+addEventListener('scroll',function(){
+  if(tk)return;tk=true;
+  requestAnimationFrame(function(){
+    var y=scrollY;
+    fl.forEach(function(f){f.style.transform='translateY('+(y*f.dataset.s)+'px)'});
+    tk=false;
+  });
+},{passive:true});
+/* palavra que troca */
+var W=["mexer","comer bem","respirar","brincar","dançar"],wi=0,wd=document.getElementById('word');
+setInterval(function(){wi=(wi+1)%W.length;wd.style.animation='none';void wd.offsetWidth;wd.textContent=W[wi];wd.style.animation=''},2000);
+/* dado de dicas */
+var tt;
+document.getElementById('dice').onclick=function(){
+  var t=document.getElementById('toast');
+  t.textContent='💡 '+all[Math.random()*all.length|0];
+  t.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('show')},3500);
+};
+/* respiração */
+var bt=null,orb=document.getElementById('orb'),bb=document.getElementById('bbtn'),ph=false;
+function phase(){ph=!ph;orb.classList.toggle('in',ph);orb.textContent=ph?'Inspire':'Expire'}
+bb.onclick=function(){
+  if(bt){clearInterval(bt);bt=null;orb.classList.remove('in');orb.textContent='Pronto?';bb.textContent='Começar';return}
+  ph=false;phase();bt=setInterval(phase,4000);bb.textContent='Parar';
+};
+</script>
+</body>
+</html>
